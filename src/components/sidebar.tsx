@@ -6,7 +6,7 @@ import { Heart, LayoutDashboard, Users, Building2, Briefcase, FileText, Clipboar
 import { useState } from 'react'
 import type { UserRole } from '@/types/database'
 interface SidebarProps { user: { name: string; email: string; role: UserRole; avatarUrl: string|null } }
-const nav=[{name:'Dashboard',href:'/',icon:LayoutDashboard},{name:'Employees',href:'/employees',icon:Users},{name:'Departments',href:'/departments',icon:Building2},{name:'Roles',href:'/roles',icon:Briefcase},{name:'Recruiting',href:'/recruiting',icon:ClipboardCheck,soon:true},{name:'Offer Letters',href:'/offers',icon:FileText,soon:true},{name:'Documents',href:'/documents',icon:FileText,soon:true},{name:'Analytics',href:'/analytics',icon:BarChart3,soon:true},{name:'Compliance',href:'/compliance',icon:Shield,soon:true},{name:'Settings',href:'/settings',icon:Settings}]
+const nav=[{name:'Dashboard',href:'/',icon:LayoutDashboard},{name:'Employees',href:'/employees',icon:Users},{name:'Departments',href:'/departments',icon:Building2},{name:'Roles',href:'/roles',icon:Briefcase},{name:'Recruiting',href:'/recruiting',icon:ClipboardCheck,soon:true},{name:'Offer Letters',href:'/offers',icon:FileText},{name:'Documents',href:'/documents',icon:FileText,soon:true},{name:'Analytics',href:'/analytics',icon:BarChart3,soon:true},{name:'Compliance',href:'/compliance',icon:Shield,soon:true},{name:'Settings',href:'/settings',icon:Settings}]
 export function Sidebar({user}:SidebarProps){
   const pathname=usePathname();const router=useRouter();const [collapsed,setCollapsed]=useState(false);const [mobileOpen,setMobileOpen]=useState(false);const supabase=createClient()
   async function handleSignOut(){await supabase.auth.signOut();router.push('/login');router.refresh()}
