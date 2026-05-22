@@ -1,0 +1,13 @@
+import { createClient } from '@/lib/supabase/server'
+import { Users, Building2, Briefcase, FileCheck, AlertTriangle, Clock } from 'lucide-react'
+export default async function DashboardPage() {
+  const supabase = await createClient()
+  const [emp,dept,rol,tmpl] = await Promise.all([
+    supabase.from('employees').select('id',{count:'exact',head:true}).eq('is_active',true),
+    supabase.from('departments').select('id',{count:'exact',head:true}).eq('is_active',true),
+    supabase.from('roles').select('id',{count:'exact',head:true}).eq('is_active',true),
+    supabase.from('form_templates').select('id',{count:'exact',head:true}).eq('is_active',true)])
+  const stats=[{l:'Active Employees',v:emp.count||0,i:Users,c:'emerald'},{l:'Departments',v:dept.count||0,i:Building2,c:'blue'},{l:'Roles',v:rol.count||0,i:Briefcase,c:'violet'},{l:'Form Templates',v:tmpl.count||0,i:FileCheck,c:'amber'}]
+  const cm:any={emerald:{bg:'bg-emerald-50',ic:'text-emerald-600'},blue:{bg:'bg-blue-50',ic:'text-blue-600'},violet:{bg:'bg-violet-50',ic:'text-violet-600'},amber:{bg:'bg-amber-50',ic:'text-amber-600'}}
+  return (<div><div className="mb-8"><h1 className="text-2xl font-semibold text-slate-900">Dashboard</h1><p className="text-sm text-slate-500 mt-1">Welcome to PrimeaHR</p></div><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">{stats.map(s=>{const co=cm[s.c];return(<div key={s.l} className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm hover:shadow-md transition-shadow"><div className="flex items-center justify-between mb-3"><div className={`w-10 h-10 rounded-xl ${co.bg} flex items-center justify-center`}><s.i className={`w-5 h-5 ${co.ic}`}/></div></div><p className="text-2xl font-semibold text-slate-900">{s.v}</p><p className="text-sm text-slate-500 mt-0.5">{s.l}</p></div>)})}</div><div className="grid grid-cols-1 lg:grid-cols-2 gap-6"><div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm"><h2 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2"><Clock className="w-4 h-4 text-slate-400"/>Recent Activity</h2><div className="text-sm text-slate-500 py-8 text-center">Activity will appear here as you use the platform.</div></div><div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm"><h2 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-amber-500"/>Compliance Alerts</h2><div className="text-sm text-slate-500 py-8 text-center">Upcoming license expirations will appear here.</div></div></div></div>)
+}
