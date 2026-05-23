@@ -1,5 +1,6 @@
 'use client'
 import{useState,useRef,useEffect}from'react'
+import{useSearchParams}from'next/navigation'
 import{createClient}from'@/lib/supabase/client'
 import{Upload,FileText,CheckCircle,Clock,XCircle,Eye,Search,RefreshCw,AlertCircle}from'lucide-react'
 
@@ -36,6 +37,8 @@ export default function DocumentsPage(){
   const[search,setSearch]=useState('')
   const fileRef=useRef<HTMLInputElement>(null)
   const supabase=createClient()
+  const searchParams=useSearchParams()
+  const empParam=searchParams.get('emp')
 
   useEffect(()=>{load()},[]) 
 
@@ -47,7 +50,7 @@ export default function DocumentsPage(){
     ])
     setEmps(e||[])
     setDocs(d||[])
-    if(!sel&&e&&e.length>0)setSel(e[0].id)
+    if(!sel&&e&&e.length>0)setSel(empParam&&e.find((x:any)=>x.id===empParam)?empParam:e[0].id)
     setLoading(false)
   }
 

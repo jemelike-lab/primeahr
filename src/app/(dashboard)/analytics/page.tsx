@@ -21,7 +21,7 @@ export default function AnalyticsPage(){
 
   async function load(){
     const[{data:e},{data:d},{data:c},{data:r},{data:dep}]=await Promise.all([
-      supabase.from('employees').select('id,department_id,employment_status,is_active,onboarding_status,created_at').eq('is_active',true),
+      supabase.from('employees').select('id,first_name,last_name,department_id,employment_status,is_active,onboarding_status,created_at').eq('is_active',true),
       supabase.from('employee_documents').select('employee_id,name,status'),
       supabase.from('candidates').select('id,stage,applied_at,created_at'),
       supabase.from('requisitions').select('id,status,days_open,created_at,opened_at'),
@@ -201,7 +201,7 @@ export default function AnalyticsPage(){
               {heatEmps.map(emp=>(
                 <tr key={emp.id}>
                   <td className="pr-3 py-1 text-slate-700 font-medium truncate max-w-[120px]">
-                    {(emps.find(e=>e.id===emp.id) as any)?.first_name||'?'} {(emps.find(e=>e.id===emp.id) as any)?.last_name||''}
+                    {emp.first_name||'?'} {emp.last_name||''}
                   </td>
                   {DOC_KEYS.map(k=>(
                     <td key={k} className="px-1 py-1">
