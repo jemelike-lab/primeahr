@@ -1,64 +1,27 @@
 @import 'tailwindcss';
 :root {
   --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --c-navy: #0f172a;
-  --c-navy-light: #1e293b;
-  --c-emerald: #10b981;
-  --c-emerald-glow: rgba(16,185,129,0.15);
+  --dark-base: #0c1222;
+  --dark-surface: #131b2e;
+  --dark-card: rgba(255,255,255,0.04);
+  --dark-border: rgba(255,255,255,0.06);
+  --accent: #22d3ee;
+  --accent-2: #a78bfa;
+  --light-base: #f0f2f5;
+  --light-card: #ffffff;
 }
-body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; background: #f8fafc; }
-::-webkit-scrollbar { width: 6px; height: 6px; }
+body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-/* Animations */
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideInRight { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-@keyframes progressFill { from { width: 0%; } }
-@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-@keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
-@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-@keyframes ringFill { from { stroke-dashoffset: 283; } }
-@keyframes countUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes glow { 0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } 50% { box-shadow: 0 0 20px 4px rgba(16,185,129,0.15); } }
-
-.anim-fade-up { animation: fadeInUp 0.5s ease-out both; }
-.anim-fade-up-1 { animation: fadeInUp 0.5s ease-out 0.05s both; }
-.anim-fade-up-2 { animation: fadeInUp 0.5s ease-out 0.1s both; }
-.anim-fade-up-3 { animation: fadeInUp 0.5s ease-out 0.15s both; }
-.anim-fade-up-4 { animation: fadeInUp 0.5s ease-out 0.2s both; }
-.anim-fade-up-5 { animation: fadeInUp 0.5s ease-out 0.25s both; }
-.anim-fade-up-6 { animation: fadeInUp 0.5s ease-out 0.3s both; }
-.anim-scale { animation: scaleIn 0.4s ease-out both; }
-.anim-slide { animation: slideInRight 0.4s ease-out both; }
-.anim-progress { animation: progressFill 1.2s ease-out 0.3s both; }
-.anim-shimmer { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); background-size: 200% 100%; animation: shimmer 2s infinite; }
-.anim-float { animation: float 3s ease-in-out infinite; }
-.anim-glow { animation: glow 2s ease-in-out infinite; }
-
-/* Glass card */
-.glass { background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
-.glass-dark { background: rgba(15,23,42,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
-
-/* Gradient cards */
-.grad-emerald { background: linear-gradient(135deg, #065f46, #059669, #10b981); }
-.grad-blue { background: linear-gradient(135deg, #1e3a5f, #2563eb, #3b82f6); }
-.grad-violet { background: linear-gradient(135deg, #4c1d95, #7c3aed, #8b5cf6); }
-.grad-amber { background: linear-gradient(135deg, #78350f, #d97706, #f59e0b); }
-.grad-rose { background: linear-gradient(135deg, #881337, #e11d48, #fb7185); }
-.grad-navy { background: linear-gradient(135deg, #0f172a, #1e293b); }
-
-/* Stat card hover */
-.stat-card { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
-.stat-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); }
-
-/* Table row hover */
-.row-hover { transition: all 0.2s; }
-.row-hover:hover { background: rgba(16,185,129,0.04); }
-
-/* Progress ring */
-.progress-ring { transform: rotate(-90deg); }
-.progress-ring circle { transition: stroke-dashoffset 1s ease-out; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+@keyframes slideUp { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
+@keyframes scaleUp { from { opacity:0; transform:scale(0.96) } to { opacity:1; transform:scale(1) } }
+@keyframes fillBar { from { width:0 } }
+@keyframes ringDraw { from { stroke-dashoffset: 251 } }
+@keyframes pulse2 { 0%,100% { opacity:1 } 50% { opacity:0.5 } }
+@keyframes float2 { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-6px) } }
+@keyframes glow2 { 0%,100% { box-shadow: 0 0 0 rgba(34,211,238,0) } 50% { box-shadow: 0 0 30px rgba(34,211,238,0.15) } }
+@keyframes shimmer2 { 0% { left:-100% } 100% { left:200% } }
