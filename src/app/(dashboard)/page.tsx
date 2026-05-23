@@ -40,7 +40,7 @@ export default async function DashboardPage() {
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:32,animation:'fadeUp 0.5s ease-out'}}>
           <div>
             <h1 style={{fontSize:28,fontWeight:800,color:'#f8fafc',letterSpacing:'-0.025em',margin:0}}>Good {new Date().getHours()<12?'morning':new Date().getHours()<18?'afternoon':'evening'}</h1>
-            <p style={{fontSize:14,color:'#64748b',marginTop:4}}>Here\u2019s what\u2019s happening at Beatrice Loving Heart today</p>
+            <p style={{fontSize:14,color:'#64748b',marginTop:4}}>Here’s what’s happening at Beatrice Loving Heart today</p>
           </div>
           <div style={{display:'flex',alignItems:'center',gap:8}}>
             <div style={{padding:'8px 16px',borderRadius:12,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.08)',color:'#94a3b8',fontSize:12,fontWeight:600}}>
@@ -129,7 +129,7 @@ export default async function DashboardPage() {
               <Link href="/compliance" style={{fontSize:12,fontWeight:600,color:'#10b981',textDecoration:'none',display:'flex',alignItems:'center',gap:2}}>View<ChevronRight style={{width:14,height:14}}/></Link>
             </div>
             {credAlerts.length===0?(
-              <div style={{textAlign:'center',padding:'24px 0'}}><div style={{fontSize:28,marginBottom:4}}>\u2705</div><p style={{fontSize:13,color:'#94a3b8'}}>All credentials current</p></div>
+              <div style={{textAlign:'center',padding:'24px 0'}}><div style={{fontSize:28,marginBottom:4}}>✅</div><p style={{fontSize:13,color:'#94a3b8'}}>All credentials current</p></div>
             ):(
               <div style={{display:'flex',flexDirection:'column',gap:8}}>
                 {credAlerts.map((a,i)=>{
@@ -151,7 +151,7 @@ export default async function DashboardPage() {
               <Link href="/recruiting" style={{fontSize:12,fontWeight:600,color:'#10b981',textDecoration:'none',display:'flex',alignItems:'center',gap:2}}>All<ChevronRight style={{width:14,height:14}}/></Link>
             </div>
             {!reqs||reqs.length===0?(
-              <div style={{textAlign:'center',padding:'24px 0'}}><p style={{fontSize:13,color:'#94a3b8'}}>No open requisitions</p><Link href="/recruiting/new" style={{fontSize:12,fontWeight:600,color:'#7c3aed',textDecoration:'none'}}>Create one \u2192</Link></div>
+              <div style={{textAlign:'center',padding:'24px 0'}}><p style={{fontSize:13,color:'#94a3b8'}}>No open requisitions</p><Link href="/recruiting/new" style={{fontSize:12,fontWeight:600,color:'#7c3aed',textDecoration:'none'}}>Create one →</Link></div>
             ):(
               <div style={{display:'flex',flexDirection:'column',gap:8}}>
                 {(reqs||[]).slice(0,4).map(r=>(<div key={r.id} style={{display:'flex',alignItems:'center',gap:10,padding:'10px 12px',borderRadius:12,background:'#faf5ff',border:'1px solid #e9d5ff'}}>
