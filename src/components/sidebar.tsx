@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Heart, LayoutDashboard, Users, Building2, Briefcase, FileText, ClipboardCheck, BarChart3, Shield, Settings, LogOut, ChevronLeft, Menu } from 'lucide-react'
+import { Heart, LayoutDashboard, Users, Building2, Briefcase, FileText, ClipboardCheck, ClipboardList, BarChart3, Shield, Settings, LogOut, ChevronLeft, Menu } from 'lucide-react'
 import { useState } from 'react'
 import type { UserRole } from '@/types/database'
 interface SidebarProps { user: { name: string; email: string; role: UserRole; avatarUrl: string|null } }
