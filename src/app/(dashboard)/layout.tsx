@@ -1,10 +1,26 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { Sidebar } from '@/components/sidebar'
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
-  const { data: employee } = await supabase.from('employees').select('id, first_name, last_name, email, user_role, avatar_url').eq('auth_user_id', user.id).single()
-  return (<div className="flex h-screen bg-slate-50"><Sidebar user={{ name: employee ? `${employee.first_name} ${employee.last_name}` : user.email || 'User', email: employee?.email || user.email || '', role: employee?.user_role || 'employee', avatarUrl: employee?.avatar_url || null }} /><main className="flex-1 overflow-auto"><div className="p-6 lg:p-8 max-w-7xl mx-auto">{children}</div></main></div>)
+  const s = await createClient()
+  const { data: { user: authUser } } = await s.auth.getUser()
+  if (!authUser) redirect('/login')
+
+  const { data: emp } = await s.from('employees').select('first_name, last_name, user_role, avatar_url').eq('auth_user_id', authUser.id).single()
+  const user = {
+    name: emp ? `${emp.first_name} ${emp.last_name}` : authUser.email?.split('@')[0] || 'User',
+    email: authUser.email || '',
+    role: (emp?.user_role || 'employee') as any,
+    avatarUrl: emp?.avatar_url || null
+  }
+
+  return (
+    <div className="flex h-screen bg-slate-50">
+      <Sidebar user={user} />
+      <main className="flex-1 overflow-y-auto">
+        <div className="p-6 lg:p-8 max-w-[1400px] mx-auto">{children}</div>
+      </main>
+    </div>
+  )
 }
