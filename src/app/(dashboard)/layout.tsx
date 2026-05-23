@@ -14,9 +14,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
     avatarUrl: emp?.avatar_url || null
   }
   return (
-    <div className="flex h-screen" style={{background:'#0c1222'}}>
+    <div className="flex h-screen" style={{background:'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)'}}>
       <Sidebar user={user} />
-      <main className="flex-1 overflow-y-auto">{children}</main>
+      <main className="flex-1 overflow-y-auto" style={{background:'rgba(241,245,249,0.92)',backdropFilter:'blur(20px)'}}>{children}</main>
     </div>
   )
 }
