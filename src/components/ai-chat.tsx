@@ -6,7 +6,7 @@ interface Msg{role:'user'|'assistant';content:string}
 
 export function AiChat(){
   const[open,setOpen]=useState(false)
-  const[msgs,setMsgs]=useState<Msg[]>([{role:'assistant',content:'Hi! I'm PrimeaHR AI, your intelligent HR assistant. I can help with employee onboarding, compliance questions, document status, and more. What can I help you with?'}])
+  const[msgs,setMsgs]=useState<Msg[]>([{role:'assistant',content:"Hi! I am PrimeaHR AI, your intelligent HR assistant. I can help with employee onboarding, compliance questions, document status, and more. What can I help you with?"}])
   const[input,setInput]=useState('')
   const[loading,setLoading]=useState(false)
   const scrollRef=useRef<HTMLDivElement>(null)
