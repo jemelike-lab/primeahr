@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { CheckCircle2, Circle, Calendar, User, Mail, FileText, Sparkles, AlertCircle } from 'lucide-react'
 import { DocumentsPanel } from './_components/DocumentsPanel'
+import { getFormCodeForDocName } from '@/lib/forms/registry'
 
 export const dynamic = 'force-dynamic'
 
@@ -75,6 +76,7 @@ export default async function WelcomeTokenPage({ params }: PageProps) {
   for (const d of (docs ?? []) as any[]) docMap.set(d.name.toLowerCase(), d)
   const docList = BLH_DEFAULT_DOCS.map((d) => {
     const real = docMap.get(d.name.toLowerCase())
+    const formCode = getFormCodeForDocName(d.name)
     return {
       id: real?.id ?? null,
       name: d.name,
@@ -82,6 +84,7 @@ export default async function WelcomeTokenPage({ params }: PageProps) {
       status: real?.status ?? 'pending',
       uploaded_at: real?.uploaded_at ?? null,
       rejection_reason: real?.rejection_reason ?? null,
+      form_code: formCode,
     }
   })
   const realExtra = (docs ?? []).filter((d: any) => !BLH_DEFAULT_DOCS.find((x) => x.name.toLowerCase() === d.name.toLowerCase()))
@@ -93,6 +96,7 @@ export default async function WelcomeTokenPage({ params }: PageProps) {
       status: r.status,
       uploaded_at: r.uploaded_at ?? null,
       rejection_reason: r.rejection_reason ?? null,
+      form_code: getFormCodeForDocName(r.name),
     })
   }
 

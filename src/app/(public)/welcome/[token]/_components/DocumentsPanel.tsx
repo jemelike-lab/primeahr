@@ -1,8 +1,9 @@
 'use client'
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { uploadOnboardingDocument } from '../actions'
-import { Upload, FileText, AlertCircle, Loader2, Sparkles, RefreshCw, ShieldCheck } from 'lucide-react'
+import { Upload, FileText, AlertCircle, Loader2, Sparkles, RefreshCw, ShieldCheck, PenLine, ArrowRight } from 'lucide-react'
 
 export interface DocRow {
   id: string | null
@@ -11,6 +12,7 @@ export interface DocRow {
   status: string
   uploaded_at?: string | null
   rejection_reason?: string | null
+  form_code?: string | null
 }
 
 interface Props { token: string; initialDocs: DocRow[] }
@@ -75,14 +77,46 @@ export function DocumentsPanel({ token, initialDocs }: Props) {
 
   return (
     <div className="space-y-1">
-      {docs.map((d) => (
-        <UploadRow key={d.name} doc={d} state={rowState[d.name]} onFile={(f) => handleFile(d, f)} />
-      ))}
+      {docs.map((d) =>
+        d.form_code ? (
+          <FillableFormRow key={d.name} doc={d} token={token} />
+        ) : (
+          <UploadRow key={d.name} doc={d} state={rowState[d.name]} onFile={(f) => handleFile(d, f)} />
+        )
+      )}
       <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-500">
         <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
         <span>Uploads are encrypted and reviewed by Claude AI before going to HR. PDF or image (JPG, PNG, WebP, HEIC), 10MB max.</span>
       </div>
     </div>
+  )
+}
+
+function FillableFormRow({ doc, token }: { doc: DocRow; token: string }) {
+  const isApproved = doc.status === 'approved'
+  const pill = pillFor(doc.status)
+  return (
+    <Link
+      href={`/welcome/${token}/forms/${doc.form_code}`}
+      className="group flex items-center gap-3 py-2.5 px-2 rounded-lg hover:bg-violet-50/60 transition"
+    >
+      <PenLine className={`w-4 h-4 flex-shrink-0 ${isApproved ? 'text-emerald-500' : 'text-violet-400'}`} />
+      <div className="flex-1 min-w-0">
+        <div className="text-sm text-slate-700 truncate">{doc.name}</div>
+        {!isApproved && (
+          <div className="text-[11px] text-violet-600 mt-0.5 flex items-center gap-1">
+            <Sparkles className="w-3 h-3" />AI-prefilled — review and sign in about 3 minutes.
+          </div>
+        )}
+      </div>
+      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: pill.bg, color: pill.color }}>
+        {pill.label}
+      </span>
+      <span className="text-[11px] font-semibold flex items-center gap-1 px-2 py-1 rounded-md text-violet-700 group-hover:bg-violet-100 transition flex-shrink-0">
+        {isApproved ? 'View' : 'Fill out'}
+        <ArrowRight className="w-3 h-3" />
+      </span>
+    </Link>
   )
 }
 
