@@ -1,8 +1,11 @@
 'use server'
 
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createToken } from '@/lib/tokens'
+import { sendEmail } from '@/lib/email/send'
+import { applyStep1Email } from '@/lib/email/templates/apply-step1'
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
 const MAX_RESUME_BYTES = 5 * 1024 * 1024 // 5MB
@@ -14,6 +17,13 @@ const ALLOWED_RESUME_TYPES = new Set([
 
 export interface ApplyStep1Result {
   error?: string
+}
+
+function getAppOrigin(): string {
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  return 'https://primeahr.vercel.app'
 }
 
 export async function submitApplyStep1(
@@ -64,7 +74,6 @@ export async function submitApplyStep1(
 
     if (existing?.id) {
       candidateId = existing.id
-      // Refresh contact fields in case they updated since last apply
       await supabase
         .from('candidates')
         .update({
@@ -147,14 +156,35 @@ export async function submitApplyStep1(
     metadata: { role_slug: roleSlug, step_completed: 1 },
   })
 
-  // 6) Audit log
+  // 6) Send confirmation email with magic-link to resume
+  const origin = getAppOrigin()
+  const continueUrl = `${origin}/apply/${roleSlug}/continue?t=${encodeURIComponent(token.token)}`
+  const emailContent = applyStep1Email({
+    firstName,
+    roleName: role.display_name,
+    continueUrl,
+  })
+  const emailResult = await sendEmail({
+    to: email,
+    subject: emailContent.subject,
+    html: emailContent.html,
+    text: emailContent.text,
+  })
+
+  // 7) Audit log
   await supabase.from('application_events').insert({
     application_id: application.id,
     event_type: 'step_completed',
     actor: 'candidate',
-    metadata: { step: 1, role_slug: roleSlug },
+    metadata: {
+      step: 1,
+      role_slug: roleSlug,
+      email_sent: emailResult.ok,
+      email_id: emailResult.id ?? null,
+      email_error: emailResult.error ?? null,
+    },
   })
 
-  // 7) Redirect to step 2
+  // 8) Redirect to step 2
   redirect(`/apply/${roleSlug}/continue?t=${encodeURIComponent(token.token)}`)
 }
