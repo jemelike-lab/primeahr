@@ -159,8 +159,7 @@ export default function LoginPage() {
               marginTop: '24px',
               maxWidth: '340px',
             }}>
-              Case management excellence for Maryland&apos;s CFC &amp; DDA 
-              waiver programs. Empowering communities, one person at a time.
+            Your complete onboarding &amp; career portal. From first application to first day &mdash; streamlined, automated, all in one place.
             </p>
           </div>
 
