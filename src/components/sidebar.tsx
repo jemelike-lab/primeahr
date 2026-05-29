@@ -104,6 +104,7 @@ export function Sidebar({user}:SidebarProps) {
           )}
         </div>
       </div>
+            <div style={{textAlign:"center",fontSize:9,color:"#5a6b69",padding:"8px 12px",lineHeight:1.3}}>Protected by PrimeaHR &middot; 256-bit encryption<br/>Built and powered by VELOX &ldquo;Automated Operations&rdquo; LLC</div>
     </aside>
   </>)
 }

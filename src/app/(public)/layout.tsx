@@ -58,7 +58,8 @@ export default function PublicLayout({
             <span>Maryland CASE Management Agency</span>
           </div>
         </div>
-      </footer>
+      <div className="text-center text-xs text-slate-400 mt-2 pb-1">Protected by PrimeaHR &middot; 256-bit encryption<br />Built and powered by VELOX &ldquo;Automated Operations&rdquo; LLC</div>
+    </footer>
     </div>
   )
 }
