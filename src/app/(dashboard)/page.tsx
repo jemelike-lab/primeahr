@@ -121,11 +121,9 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* ===== Hero chart ===== */}
-      <ApplicationsChart series={series} applications={applications} movedToOffer={movedToOffer} />
-
-      {/* ===== Onboarding + Applicants ===== */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px,1fr) minmax(320px,1.4fr)', gap: 20, marginTop: 20 }}>
+      {/* ===== Top: Chart + Onboarding ===== */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.45fr) minmax(280px,1fr)', gap: 18, marginTop: 20 }}>
+        <ApplicationsChart series={series} applications={applications} movedToOffer={movedToOffer} />
         {/* Onboarding progress */}
         <div style={{ ...card, animation: 'fadeUp 0.4s ease-out 0.05s both' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
@@ -157,7 +155,10 @@ export default async function DashboardPage() {
             </div>
           )}
         </div>
+      </div>
 
+      {/* ===== Bottom: Applicants + Calendar ===== */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.45fr) minmax(280px,1fr)', gap: 18, marginTop: 18 }}>
         {/* New applicants feed */}
         <div style={{ ...card, animation: 'fadeUp 0.4s ease-out 0.1s both' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
@@ -189,10 +190,6 @@ export default async function DashboardPage() {
             </div>
           )}
         </div>
-      </div>
-
-      {/* ===== Calendar ===== */}
-      <div style={{ marginTop: 20 }}>
         <DashboardCalendar events={events} />
       </div>
     </div>
