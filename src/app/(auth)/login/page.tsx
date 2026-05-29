@@ -503,7 +503,7 @@ export default function LoginPage() {
               fontSize: '12px',
               color: '#a39d8e',
             }}>
-              Protected by PrimeaHR &middot; 256-bit encryption
+              Protected by PrimeaHR &middot; 256-bit encryption<br />Built and powered by VELOX &ldquo;Automated Operations&rdquo; LLC
             </div>
           </div>
         </div>
