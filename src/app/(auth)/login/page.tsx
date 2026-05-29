@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
-import { Heart, Loader2, Mail, Lock, ArrowRight, Sparkles } from 'lucide-react'
+import { Loader2, Mail, Lock, ArrowRight, Sparkles } from 'lucide-react'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -110,19 +110,7 @@ export default function LoginPage() {
             transform: mounted ? 'translateY(0)' : 'translateY(12px)',
             transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
           }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '52px',
-              height: '52px',
-              borderRadius: '16px',
-              background: 'linear-gradient(135deg, #e08a3c 0%, #c97a30 100%)',
-              boxShadow: '0 8px 32px rgba(224,138,60,0.3)',
-              marginBottom: '24px',
-            }}>
-              <Heart style={{ width: '24px', height: '24px', color: 'white', fill: 'white' }} />
-            </div>
+            <img src="/images/blh-logo.png" alt="Beatrice Loving Heart" style={{ width: '80px', height: 'auto', marginBottom: '24px', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.2))' }} />
             <div style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               fontSize: '20px',
