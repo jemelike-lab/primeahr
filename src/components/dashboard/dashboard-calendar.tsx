@@ -45,8 +45,8 @@ export function DashboardCalendar({ events }: Props) {
     <div style={{ background: '#fbf9f4', borderRadius: 12, border: '1px solid #e4ddcd', padding: 24, animation: 'fadeUp 0.4s ease-out 0.2s both' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 30, height: 30, borderRadius: 9, background: '#fdeed9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <CalendarDays style={{ width: 15, height: 15, color: '#e08a3c' }} />
+          <div style={{ width: 30, height: 30, borderRadius: 9, background: '#1c2b2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <CalendarDays style={{ width: 15, height: 15, color: '#fff' }} />
           </div>
           <span style={{ fontSize: 15, fontWeight: 800, color: '#2c2c2a' }}>{MONTHS[view.m]} {view.y}</span>
         </div>

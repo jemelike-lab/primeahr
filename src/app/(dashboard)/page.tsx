@@ -123,14 +123,43 @@ export default async function DashboardPage() {
         </div>
       </div>
 
+      {/* ===== Hero KPI band (dark teal anchor) ===== */}
+      <div style={{ background: '#1c2b2a', borderRadius: 14, padding: '20px 26px', marginTop: 18, marginBottom: 4, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, boxShadow: '0 14px 36px rgba(28,43,42,0.22)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: -40, right: -40, width: 180, height: 180, borderRadius: '50%', background: 'radial-gradient(circle, rgba(224,138,60,0.18) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'relative' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#e08a3c' }} />
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#8fa19d', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Applications</span>
+          </div>
+          <div style={{ fontSize: 36, fontWeight: 800, color: '#fff', lineHeight: 1, letterSpacing: '-0.025em' }}>{applications['7d']}</div>
+          <div style={{ fontSize: 11, color: '#8fa19d', marginTop: 6 }}>last 7 days</div>
+        </div>
+        <div style={{ position: 'relative', borderLeft: '1px solid rgba(255,255,255,0.08)', paddingLeft: 32 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#1d9e75' }} />
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#8fa19d', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Moved to offer</span>
+          </div>
+          <div style={{ fontSize: 36, fontWeight: 800, color: '#fff', lineHeight: 1, letterSpacing: '-0.025em' }}>{movedToOffer['7d']}</div>
+          <div style={{ fontSize: 11, color: '#8fa19d', marginTop: 6 }}>last 7 days</div>
+        </div>
+        <div style={{ position: 'relative', borderLeft: '1px solid rgba(255,255,255,0.08)', paddingLeft: 32 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#e08a3c' }} />
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#8fa19d', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Active onboarding</span>
+          </div>
+          <div style={{ fontSize: 36, fontWeight: 800, color: '#fff', lineHeight: 1, letterSpacing: '-0.025em' }}>{bars.length}</div>
+          <div style={{ fontSize: 11, color: '#8fa19d', marginTop: 6 }}>new hires in progress</div>
+        </div>
+      </div>
+
       {/* ===== Top: Chart + Onboarding ===== */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.45fr) minmax(280px,1fr)', gap: 18, marginTop: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.45fr) minmax(280px,1fr)', gap: 18, marginTop: 18 }}>
         <ApplicationsChart series={series} applications={applications} movedToOffer={movedToOffer} />
         {/* Onboarding progress */}
         <div style={{ ...card, animation: 'fadeUp 0.4s ease-out 0.05s both' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{ width: 30, height: 30, borderRadius: 9, background: '#e6f4ee', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ClipboardList style={{ width: 15, height: 15, color: '#1d9e75' }} /></div>
+              <div style={{ width: 30, height: 30, borderRadius: 9, background: '#1c2b2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ClipboardList style={{ width: 15, height: 15, color: '#fff' }} /></div>
               <span style={{ fontSize: 15, fontWeight: 800, color: '#2c2c2a' }}>Onboarding progress</span>
             </div>
             <Link href="/onboarding" style={{ fontSize: 12, fontWeight: 700, color: '#e08a3c', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 2 }}>All<ChevronRight style={{ width: 14, height: 14 }} /></Link>
@@ -165,7 +194,7 @@ export default async function DashboardPage() {
         <div style={{ ...card, animation: 'fadeUp 0.4s ease-out 0.1s both' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{ width: 30, height: 30, borderRadius: 9, background: '#fdeed9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Inbox style={{ width: 15, height: 15, color: '#e08a3c' }} /></div>
+              <div style={{ width: 30, height: 30, borderRadius: 9, background: '#1c2b2a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Inbox style={{ width: 15, height: 15, color: '#fff' }} /></div>
               <span style={{ fontSize: 15, fontWeight: 800, color: '#2c2c2a' }}>New applicants</span>
             </div>
             <Link href="/recruiting" style={{ fontSize: 12, fontWeight: 700, color: '#e08a3c', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 2 }}>Pipeline<ChevronRight style={{ width: 14, height: 14 }} /></Link>

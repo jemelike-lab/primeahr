@@ -81,25 +81,25 @@ export function ApplicationsChart({ series, applications, movedToOffer }: Props)
 
         {/* Stat callouts */}
         <div style={{ flex: '0 1 200px', minWidth: 180, display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ background: 'linear-gradient(135deg,#fff7ee 0%,#fdeed9 100%)', border: '1px solid #f3dcbf', borderRadius: 12, padding: 18 }}>
+          <div style={{ background: '#1c2b2a', borderRadius: 12, padding: 18, boxShadow: '0 8px 22px rgba(28,43,42,0.18)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div style={{ width: 32, height: 32, borderRadius: 9, background: '#e08a3c', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <FileText style={{ width: 16, height: 16, color: '#fff' }} />
               </div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#a86a28' }}>Applications</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>Applications</span>
             </div>
-            <div style={{ fontSize: 38, fontWeight: 800, color: '#2c2c2a', letterSpacing: '-0.03em', lineHeight: 1.1, marginTop: 10 }}>{total}</div>
-            <div style={{ fontSize: 11, color: '#8a8475', marginTop: 2 }}>{RANGE_LABEL[range]}</div>
+            <div style={{ fontSize: 38, fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.1, marginTop: 10 }}>{total}</div>
+            <div style={{ fontSize: 11, color: '#8fa19d', marginTop: 2 }}>{RANGE_LABEL[range]}</div>
           </div>
-          <div style={{ background: '#fff', border: '1px solid #e4ddcd', borderRadius: 12, padding: 18 }}>
+          <div style={{ background: '#1c2b2a', borderRadius: 12, padding: 18, boxShadow: '0 8px 22px rgba(28,43,42,0.18)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div style={{ width: 32, height: 32, borderRadius: 9, background: '#e6f4ee', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <ArrowUpRight style={{ width: 16, height: 16, color: '#1d9e75' }} />
               </div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#1d9e75' }}>Moved to offer</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>Moved to offer</span>
             </div>
-            <div style={{ fontSize: 38, fontWeight: 800, color: '#2c2c2a', letterSpacing: '-0.03em', lineHeight: 1.1, marginTop: 10 }}>{offers}</div>
-            <div style={{ fontSize: 11, color: '#8a8475', marginTop: 2 }}>{RANGE_LABEL[range]}</div>
+            <div style={{ fontSize: 38, fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.1, marginTop: 10 }}>{offers}</div>
+            <div style={{ fontSize: 11, color: '#8fa19d', marginTop: 2 }}>{RANGE_LABEL[range]}</div>
           </div>
         </div>
       </div>
