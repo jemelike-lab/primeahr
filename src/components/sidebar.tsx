@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Heart, LayoutDashboard, Users, Building2, Briefcase, FileText, ClipboardCheck, ClipboardList, BarChart3, Shield, Settings, LogOut, ChevronLeft, Menu, Sparkles } from 'lucide-react'
+import { Heart, LayoutDashboard, Gauge, Users, Building2, Briefcase, FileText, ClipboardCheck, ClipboardList, BarChart3, Shield, Settings, LogOut, ChevronLeft, Menu, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import type { UserRole } from '@/types/database'
 
@@ -10,6 +10,7 @@ interface SidebarProps { user: { name: string; email: string; role: UserRole; av
 
 const nav:{name:string;href:string;icon:any}[] = [
   {name:'Dashboard',href:'/',icon:LayoutDashboard},
+  {name:'Control Center',href:'/control-center',icon:Gauge},
   {name:'Employees',href:'/employees',icon:Users},
   {name:'Departments',href:'/departments',icon:Building2},
   {name:'Roles',href:'/roles',icon:Briefcase},

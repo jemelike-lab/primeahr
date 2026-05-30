@@ -1,0 +1,53 @@
+import { CircleDollarSign } from 'lucide-react';
+import { ModuleCard, Row } from '../module-card';
+import { Avatar } from '../avatar';
+import { StatusPill } from '../status-pill';
+import { EmptyState } from '../empty-state';
+import { fullName, relTime } from '../../_lib/format';
+import { T } from '../../_lib/tokens';
+import type { RateChangeRow } from '../../_lib/queries';
+
+export function RateChangeModule({ rows }: { rows: RateChangeRow[] }) {
+  const top = rows.slice(0, 5);
+  return (
+    <ModuleCard
+      title="Due for rate change"
+      subtitle="Eval completed · no comp change linked"
+      count={rows.length}
+      tone="amber"
+      icon={CircleDollarSign}
+      viewAllHref="/employees"
+      accent={rows.length > 0}
+    >
+      {rows.length === 0 ? (
+        <EmptyState label="All caught up" hint="Every recent eval has a comp action linked" />
+      ) : (
+        <>
+          {top.map(r => (
+            <Row key={r.eval_id}
+              left={
+                <>
+                  <Avatar first={r.first_name} last={r.last_name} url={r.avatar_url} />
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 12.5, fontWeight: 600, color: T.text,
+                      overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {fullName(r.first_name, r.last_name)}
+                    </div>
+                    <div style={{ fontSize: 10.5, color: T.textFaint }}>
+                      Eval done {relTime(r.completed_at)}
+                      {r.score != null && ` · ${r.score}%`}
+                    </div>
+                  </div>
+                </>
+              }
+              right={<StatusPill tone="amber">Action</StatusPill>}
+            />
+          ))}
+          {rows.length > 5 && (
+            <div style={{ fontSize: 11, color: T.textMuted, paddingTop: 4 }}>+{rows.length - 5} awaiting</div>
+          )}
+        </>
+      )}
+    </ModuleCard>
+  );
+}
