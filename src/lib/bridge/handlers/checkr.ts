@@ -1,4 +1,4 @@
-import type { EventHandler, EventHandlerResult } from '../types';
+import type { EventHandler, EventHandlerResult, ExternalEventRow } from '../types';
 
 /**
  * Checkr webhook handlers.
@@ -21,7 +21,7 @@ export const checkrHandlers = {
   knownEventTypes: () => Object.keys(handlerMap),
 };
 
-async function handleReportCreated(event, ctx): Promise<EventHandlerResult> {
+async function handleReportCreated(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   const { adminSupabase } = ctx;
   const p = event.payload as { data?: { object?: { id?: string; package?: string; status?: string } } };
   const reportId = p.data?.object?.id;
@@ -47,7 +47,7 @@ async function handleReportCreated(event, ctx): Promise<EventHandlerResult> {
     result_summary: `report ${reportId} created` };
 }
 
-async function handleReportCompleted(event, ctx): Promise<EventHandlerResult> {
+async function handleReportCompleted(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   const { adminSupabase } = ctx;
   const obj = (event.payload as any)?.data?.object;
   const reportId = obj?.id;
@@ -88,12 +88,12 @@ async function handleReportCompleted(event, ctx): Promise<EventHandlerResult> {
     result_summary: `checkr report completed → ${mapped.status}` };
 }
 
-async function handleReportDisputed(event, ctx): Promise<EventHandlerResult> {
+async function handleReportDisputed(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   return { target_table: 'background_checks', target_id: null, outcome: 'requires_review',
     result_summary: 'checkr report disputed — escalate to HR' };
 }
 
-async function handleReportCanceled(event, ctx): Promise<EventHandlerResult> {
+async function handleReportCanceled(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   const { adminSupabase } = ctx;
   const reportId = (event.payload as any)?.data?.object?.id;
   if (!reportId) {
@@ -110,7 +110,7 @@ async function handleReportCanceled(event, ctx): Promise<EventHandlerResult> {
     result_summary: `checkr report ${reportId} canceled` };
 }
 
-async function handleInvitationCompleted(event, ctx): Promise<EventHandlerResult> {
+async function handleInvitationCompleted(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   return { target_table: 'background_checks', target_id: null, outcome: 'success',
     result_summary: 'checkr invitation completed; report will follow' };
 }

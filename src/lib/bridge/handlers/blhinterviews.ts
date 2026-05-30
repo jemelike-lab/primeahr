@@ -1,4 +1,4 @@
-import type { EventHandler, EventHandlerResult } from '../types';
+import type { EventHandler, EventHandlerResult, ExternalEventRow } from '../types';
 
 /**
  * Handlers for events arriving from blhinterviews.com.
@@ -21,7 +21,7 @@ export const blhinterviewsHandlers = {
   knownEventTypes: () => Object.keys(handlerMap),
 };
 
-async function handleCandidateAdvanced(event, ctx): Promise<EventHandlerResult> {
+async function handleCandidateAdvanced(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   const { adminSupabase } = ctx;
   const payload = event.payload as { blhinterviews_candidate_id?: string; new_stage?: string };
   if (!payload.blhinterviews_candidate_id) {
@@ -41,27 +41,27 @@ async function handleCandidateAdvanced(event, ctx): Promise<EventHandlerResult> 
     result_summary: `stage advanced to ${payload.new_stage ?? 'unknown'}` };
 }
 
-async function handleCandidateRejected(event, ctx): Promise<EventHandlerResult> {
+async function handleCandidateRejected(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   return handleCandidateAdvanced(event, ctx);
 }
 
-async function handleCandidateHired(event, ctx): Promise<EventHandlerResult> {
+async function handleCandidateHired(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   // Hire is a high-stakes event — flag for human review until the employee-creation
   // flow has been signed off.
   return { target_table: 'candidates', target_id: null, outcome: 'requires_review',
     result_summary: 'candidate.hired received — awaiting employee creation workflow' };
 }
 
-async function handleCandidateNoteAdded(event, ctx): Promise<EventHandlerResult> {
+async function handleCandidateNoteAdded(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   return { target_table: 'candidates', target_id: null, outcome: 'success',
     result_summary: 'note recorded (no PrimeaHR mutation)' };
 }
 
-async function handleInterviewScheduled(event, ctx): Promise<EventHandlerResult> {
+async function handleInterviewScheduled(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   return { target_table: null, target_id: null, outcome: 'success',
     result_summary: 'interview event logged' };
 }
 
-async function handleInterviewCompleted(event, ctx): Promise<EventHandlerResult> {
+async function handleInterviewCompleted(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   return handleInterviewScheduled(event, ctx);
 }

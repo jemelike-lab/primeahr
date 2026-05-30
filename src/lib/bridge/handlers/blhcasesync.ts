@@ -1,4 +1,4 @@
-import type { EventHandler, EventHandlerResult } from '../types';
+import type { EventHandler, EventHandlerResult, ExternalEventRow } from '../types';
 
 /**
  * Handlers for events arriving from blhcasesync.com.
@@ -20,7 +20,7 @@ export const blhcasesyncHandlers = {
   knownEventTypes: () => Object.keys(handlerMap),
 };
 
-async function handleEvaluationScheduled(event, ctx): Promise<EventHandlerResult> {
+async function handleEvaluationScheduled(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   const { adminSupabase } = ctx;
   const p = event.payload as {
     casesync_record_id?: string;
@@ -67,7 +67,7 @@ async function handleEvaluationScheduled(event, ctx): Promise<EventHandlerResult
     result_summary: `evaluation scheduled for ${p.scheduled_for ?? 'TBD'}` };
 }
 
-async function handleEvaluationCompleted(event, ctx): Promise<EventHandlerResult> {
+async function handleEvaluationCompleted(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   const { adminSupabase } = ctx;
   const p = event.payload as {
     casesync_record_id?: string;
@@ -103,7 +103,7 @@ async function handleEvaluationCompleted(event, ctx): Promise<EventHandlerResult
     result_summary: `evaluation completed, score=${p.score ?? 'n/a'}` };
 }
 
-async function handleTrainingAssigned(event, ctx): Promise<EventHandlerResult> {
+async function handleTrainingAssigned(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   const { adminSupabase } = ctx;
   const p = event.payload as {
     casesync_record_id?: string;
@@ -144,7 +144,7 @@ async function handleTrainingAssigned(event, ctx): Promise<EventHandlerResult> {
     result_summary: `training assigned: ${p.title}` };
 }
 
-async function handleTrainingCompleted(event, ctx): Promise<EventHandlerResult> {
+async function handleTrainingCompleted(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   const { adminSupabase } = ctx;
   const p = event.payload as {
     casesync_record_id?: string;
@@ -179,7 +179,7 @@ async function handleTrainingCompleted(event, ctx): Promise<EventHandlerResult> 
     result_summary: `training completed, passed=${p.passed ?? 'n/a'}` };
 }
 
-async function handleEmployeeSynced(event, ctx): Promise<EventHandlerResult> {
+async function handleEmployeeSynced(event: ExternalEventRow, ctx: { adminSupabase: any }): Promise<EventHandlerResult> {
   return { target_table: 'employees', target_id: null, outcome: 'success',
     result_summary: 'employee sync acknowledged' };
 }
