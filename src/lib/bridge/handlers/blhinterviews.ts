@@ -16,7 +16,7 @@ import type { ExternalEventRow, EventHandler } from '../types';
  * Stage mapping: blhinterviews sends its own stage label; we translate to the PrimeaHR
  * candidate_stage enum (new | screening | interviewing | offer | hired | dispositioned).
  */
-export const blhinterviewsHandlers: Record<string, EventHandler> = {
+const handlerMap: Record<string, EventHandler> = {
   'candidate.created':     candidateCreated,
   'candidate.updated':     candidateUpdated,
   'candidate.advanced':    candidateAdvanced,
@@ -352,3 +352,10 @@ function mapStage(s: string | null | undefined):
     return 'dispositioned';
   return null;
 }
+
+export const blhinterviewsHandlers = {
+  resolve(eventType: string): EventHandler | null {
+    return handlerMap[eventType] ?? null;
+  },
+  knownEventTypes: () => Object.keys(handlerMap),
+};
