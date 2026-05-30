@@ -60,7 +60,7 @@ export function ApplicationsChart({ series, applications, movedToOffer }: Props)
             <AreaChart data={data} margin={{ top: 10, right: 8, left: -22, bottom: 0 }}>
               <defs>
                 <linearGradient id="amberFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#e08a3c" stopOpacity={0.32} />
+                  <stop offset="0%" stopColor="#e08a3c" stopOpacity={0.65} />
                   <stop offset="100%" stopColor="#e08a3c" stopOpacity={0} />
                 </linearGradient>
               </defs>
@@ -68,7 +68,7 @@ export function ApplicationsChart({ series, applications, movedToOffer }: Props)
               <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#a39d8e' }} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={12} />
               <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#a39d8e' }} axisLine={false} tickLine={false} width={32} />
               <Tooltip content={<ChartTooltip />} cursor={{ stroke: '#e08a3c', strokeWidth: 1, strokeDasharray: '4 4' }} />
-              <Area type="monotone" dataKey="count" stroke="#d4762a" strokeWidth={2.5} fill="url(#amberFill)" dot={false} activeDot={{ r: 4, fill: '#d4762a', stroke: '#fff', strokeWidth: 2 }} />
+              <Area type="monotone" dataKey="count" stroke="#d4762a" strokeWidth={3} fill="url(#amberFill)" dot={false} activeDot={{ r: 4, fill: '#d4762a', stroke: '#fff', strokeWidth: 2 }} />
             </AreaChart>
           </ResponsiveContainer>
           {!hasData && (

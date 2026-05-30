@@ -5,8 +5,8 @@ import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react'
 export type CalEvent = { date: string; type: 'interview' | 'start' | 'deadline'; label: string }
 interface Props { events: CalEvent[] }
 
-const TYPE_COLOR: Record<CalEvent['type'], string> = { interview: '#1d9e75', start: '#1c2b2a', deadline: '#d85a30' }
-const TYPE_BG: Record<CalEvent['type'], string> = { interview: '#e6f4ee', start: '#e7eceb', deadline: '#fbe7df' }
+const TYPE_COLOR: Record<CalEvent['type'], string> = { interview: '#fff', start: '#fff', deadline: '#fff' }
+const TYPE_BG: Record<CalEvent['type'], string> = { interview: '#1d9e75', start: '#1c2b2a', deadline: '#d85a30' }
 const TYPE_NAME: Record<CalEvent['type'], string> = { interview: 'Interviews', start: 'Start dates', deadline: 'Deadlines' }
 const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -92,7 +92,7 @@ export function DashboardCalendar({ events }: Props) {
       <div style={{ display: 'flex', gap: 16, marginTop: 16, flexWrap: 'wrap' }}>
         {(['interview', 'start', 'deadline'] as CalEvent['type'][]).map((t) => (
           <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ width: 9, height: 9, borderRadius: 3, background: TYPE_COLOR[t], display: 'inline-block' }} />
+            <span style={{ width: 9, height: 9, borderRadius: 3, background: TYPE_BG[t], display: 'inline-block' }} />
             <span style={{ fontSize: 11, fontWeight: 600, color: '#8a8475' }}>{TYPE_NAME[t]}</span>
           </div>
         ))}

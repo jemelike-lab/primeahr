@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { ApplicationsChart } from '@/components/dashboard/applications-chart'
 import { DashboardCalendar, type CalEvent } from '@/components/dashboard/dashboard-calendar'
 
+export const dynamic = 'force-dynamic'
+
 const WK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const OFFER = new Set(['offer', 'offer_sent', 'offer_accepted', 'onboarding', 'hired'])
