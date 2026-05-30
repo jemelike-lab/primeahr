@@ -1,1 +1,15 @@
-{"framework":"nextjs","buildCommand":"next build","outputDirectory":".next"}
+{
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "crons": [
+    {
+      "path": "/api/cron/process-inbox",
+      "schedule": "* * * * *"
+    },
+    {
+      "path": "/api/cron/drain-outbox",
+      "schedule": "* * * * *"
+    }
+  ]
+}

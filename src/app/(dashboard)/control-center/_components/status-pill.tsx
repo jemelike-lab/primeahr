@@ -28,7 +28,6 @@ export function StatusPill({ tone, children, dot = true }: { tone: PillTone; chi
   );
 }
 
-// Convenience mapping helpers for known status strings used across modules.
 export function bgCheckTone(category: string): PillTone {
   if (category === 'missing') return 'red';
   if (category === 'failing') return 'red';
@@ -50,10 +49,12 @@ export function compTone(status: string): PillTone {
   if (status === 'rejected') return 'red';
   return 'slate';
 }
+// FIX: sync_status enum values are pending|in_flight|sent|confirmed|failed|abandoned.
+// Prior version used legacy names 'retrying'/'dead_letter' which never matched.
 export function syncTone(status: string): PillTone {
   if (status === 'sent' || status === 'confirmed') return 'green';
   if (status === 'pending') return 'blue';
-  if (status === 'retrying') return 'amber';
-  if (status === 'failed' || status === 'dead_letter') return 'red';
+  if (status === 'in_flight') return 'amber';
+  if (status === 'failed' || status === 'abandoned') return 'red';
   return 'slate';
 }

@@ -8,7 +8,8 @@ import type { SyncQueueRow } from '../../_lib/queries';
 
 export function SyncQueueModule({ rows }: { rows: SyncQueueRow[] }) {
   const totalRows = rows.reduce((s, r) => s + Number(r.rows || 0), 0);
-  const failing = rows.filter(r => ['failed', 'dead_letter', 'retrying'].includes(r.status))
+  // Correct sync_status enum: failed | abandoned | in_flight are the trouble buckets
+  const failing = rows.filter(r => ['failed', 'abandoned', 'in_flight'].includes(r.status))
     .reduce((s, r) => s + Number(r.rows || 0), 0);
   const tone = failing > 0 ? 'red' : totalRows > 0 ? 'blue' : 'green';
   const top = rows.slice(0, 5);
