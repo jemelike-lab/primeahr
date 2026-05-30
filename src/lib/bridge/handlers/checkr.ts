@@ -37,7 +37,7 @@ async function handleReportCreated(event: ExternalEventRow, ctx: { adminSupabase
       checkr_package: p.data?.object?.package ?? null,
       checkr_webhook_data: p.data?.object ?? {},
     })
-    .eq('checkr_invitation_id', event.payload.data?.object?.invitation_id ?? '')
+    .eq('checkr_invitation_id', (event.payload as any).data?.object?.invitation_id ?? '')
     .select('id').maybeSingle();
   if (!data) {
     return { target_table: 'background_checks', target_id: null, outcome: 'requires_review',
