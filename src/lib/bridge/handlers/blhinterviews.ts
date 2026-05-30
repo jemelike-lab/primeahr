@@ -71,7 +71,7 @@ async function candidateCreated(event: ExternalEventRow, ctx: { adminSupabase: a
 
   await logActivity(ctx.adminSupabase, candidateId, 'created',
     `Candidate created in BLH Interviews`, p);
-  return { target_table: 'candidates', target_id: candidateId };
+  return { target_table: 'candidates', target_id: candidateId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 async function candidateUpdated(event: ExternalEventRow, ctx: { adminSupabase: any }) {
@@ -95,7 +95,7 @@ async function candidateUpdated(event: ExternalEventRow, ctx: { adminSupabase: a
   await ctx.adminSupabase.from('candidates').update(patch).eq('id', candidateId);
   await logActivity(ctx.adminSupabase, candidateId, 'updated',
     `Candidate updated from BLH Interviews`, p);
-  return { target_table: 'candidates', target_id: candidateId };
+  return { target_table: 'candidates', target_id: candidateId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 async function candidateAdvanced(event: ExternalEventRow, ctx: { adminSupabase: any }) {
@@ -115,7 +115,7 @@ async function candidateAdvanced(event: ExternalEventRow, ctx: { adminSupabase: 
   await logActivity(ctx.adminSupabase, candidateId, 'status_changed',
     `Advanced${oldStage ? ` from ${oldStage}` : ''} to ${newStage}`,
     { from: oldStage, to: newStage, raw: p });
-  return { target_table: 'candidates', target_id: candidateId };
+  return { target_table: 'candidates', target_id: candidateId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 async function candidateRejected(event: ExternalEventRow, ctx: { adminSupabase: any }) {
@@ -135,7 +135,7 @@ async function candidateRejected(event: ExternalEventRow, ctx: { adminSupabase: 
 
   await logActivity(ctx.adminSupabase, candidateId, 'rejected',
     `Candidate rejected: ${reason}`, p);
-  return { target_table: 'candidates', target_id: candidateId };
+  return { target_table: 'candidates', target_id: candidateId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 async function candidateHired(event: ExternalEventRow, ctx: { adminSupabase: any }) {
@@ -187,7 +187,7 @@ async function candidateHired(event: ExternalEventRow, ctx: { adminSupabase: any
     `Candidate hired and converted to employee`,
     { employee_id: employeeId, raw: p });
 
-  return { target_table: 'employees', target_id: employeeId };
+  return { target_table: 'employees', target_id: employeeId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 async function candidateNoteAdded(event: ExternalEventRow, ctx: { adminSupabase: any }) {
@@ -204,7 +204,7 @@ async function candidateNoteAdded(event: ExternalEventRow, ctx: { adminSupabase:
     description: note.length > 200 ? note.slice(0, 200) + '…' : note,
     metadata: { source: 'blhinterviews', author: p.author ?? null, full_note: note },
   });
-  return { target_table: 'candidates', target_id: candidateId };
+  return { target_table: 'candidates', target_id: candidateId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 async function interviewScheduled(event: ExternalEventRow, ctx: { adminSupabase: any }) {
@@ -236,7 +236,7 @@ async function interviewScheduled(event: ExternalEventRow, ctx: { adminSupabase:
       type: p.interview_type ?? null,
     },
   });
-  return { target_table: 'candidates', target_id: candidateId };
+  return { target_table: 'candidates', target_id: candidateId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 async function interviewCompleted(event: ExternalEventRow, ctx: { adminSupabase: any }) {
@@ -261,7 +261,7 @@ async function interviewCompleted(event: ExternalEventRow, ctx: { adminSupabase:
     description: `Interview completed${p.score != null ? ` (score ${p.score})` : ''}`,
     metadata: { source: 'blhinterviews', kind: 'interview_completed', raw: p },
   });
-  return { target_table: 'candidates', target_id: candidateId };
+  return { target_table: 'candidates', target_id: candidateId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 async function applicationSubmitted(event: ExternalEventRow, ctx: { adminSupabase: any }) {
@@ -302,7 +302,7 @@ async function applicationSubmitted(event: ExternalEventRow, ctx: { adminSupabas
 
   await logActivity(ctx.adminSupabase, candidateId, 'created',
     `Application submitted via BLH Interviews`, { application_id: applicationId, raw: p });
-  return { target_table: 'applications', target_id: applicationId };
+  return { target_table: 'applications', target_id: applicationId, outcome: 'success' as const, result_summary: 'handled' };
 }
 
 // ---------- shared helpers ----------
@@ -335,7 +335,7 @@ async function logActivity(adminSupabase: any, candidateId: string, action: stri
 }
 
 function softFail(reason: string) {
-  return { ignored: true, error_message: reason };
+  return { target_table: null, target_id: null, outcome: 'ignored' as const, result_summary: reason };
 }
 
 /** Map blhinterviews stage strings to PrimeaHR candidate_stage enum. */
