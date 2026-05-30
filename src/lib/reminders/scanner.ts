@@ -119,7 +119,7 @@ async function fetchBackgroundChecks(adminSupabase: any): Promise<ReminderCandid
     status: r.status,
     context: { package: r.checkr_package },
     last_reminder_at: r.last_reminder_at,
-  })).filter(c => c.subject_id && c.due_at);
+  })).filter((c: ReminderCandidate) => c.subject_id && c.due_at);
 }
 
 async function fetchEvaluations(adminSupabase: any): Promise<ReminderCandidate[]> {
@@ -139,7 +139,7 @@ async function fetchEvaluations(adminSupabase: any): Promise<ReminderCandidate[]
     status: r.status,
     context: { evaluation_type: r.evaluation_type },
     last_reminder_at: r.last_reminder_at,
-  })).filter(c => c.subject_id && c.due_at);
+  })).filter((c: ReminderCandidate) => c.subject_id && c.due_at);
 }
 
 async function fetchTraining(adminSupabase: any): Promise<ReminderCandidate[]> {
@@ -159,7 +159,7 @@ async function fetchTraining(adminSupabase: any): Promise<ReminderCandidate[]> {
     status: r.status,
     context: { title: r.title, training_type: r.training_type },
     last_reminder_at: r.last_reminder_at,
-  })).filter(c => c.subject_id && c.due_at);
+  })).filter((c: ReminderCandidate) => c.subject_id && c.due_at);
 }
 
 async function fetchCompensation(adminSupabase: any): Promise<ReminderCandidate[]> {
@@ -179,7 +179,7 @@ async function fetchCompensation(adminSupabase: any): Promise<ReminderCandidate[
     status: r.status,
     context: { new_rate: r.new_rate, change_type: r.change_type },
     last_reminder_at: r.last_reminder_at,
-  })).filter(c => c.subject_id && c.due_at);
+  })).filter((c: ReminderCandidate) => c.subject_id && c.due_at);
 }
 
 async function stampSourceRow(adminSupabase: any, c: ReminderCandidate) {
